@@ -1,5 +1,6 @@
 import sys
 
+# hi 
 
 def tokenize(filename):
     """Takes in a file, returns a list of tokenized words"""
