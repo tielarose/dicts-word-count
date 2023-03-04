@@ -1,6 +1,5 @@
 import sys
-
-# hi 
+import string
 
 def tokenize(filename):
     """Takes in a file, returns a list of tokenized words"""
@@ -12,8 +11,10 @@ def tokenize(filename):
     file = open(filename)
     # Iterate over each line of file
     for line in file:
+        # Replace any punctuation with an empty string, make everything lowercase
+        line_no_punctuation = line.translate(str.maketrans('', '', string.punctuation)).lower()
         # Remove trailing white space, split into words
-        words_list += line.rstrip().split(" ")
+        words_list += line_no_punctuation.rstrip().split(" ")
 
     return words_list
 
