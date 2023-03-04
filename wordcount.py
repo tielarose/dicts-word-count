@@ -1,24 +1,51 @@
-# Write a program, wordcount.py, that opens a file and counts how many times each space-separated word occurs in that file. Your program should then output each word and the number of times it appears in the file.
-
-"""Count words in file."""
+import sys
 
 
-def count_words(filename):
-    words_count = {}
+def tokenize(filename):
+    """Takes in a file, returns a list of tokenized words"""
 
-    # open file
+    # Initialize an empty list for the words
+    words_list = []
+
+    # Open file
     file = open(filename)
-    # iterate over each line of file
+    # Iterate over each line of file
     for line in file:
-        # remove trailing white space, split into words
-        words_list = line.rstrip().split(" ")
+        # Remove trailing white space, split into words
+        words_list += line.rstrip().split(" ")
 
-        # iterate over each word in that list, add into dictionary
-        for word in words_list:
-            words_count[word] = words_count.get(word, 0) + 1
+    return words_list
 
-    for word, count in words_count.items():
+
+def count_words(words_list):
+    """Takes in a list of words, returns a dictionary of word: count"""
+
+    # Initialize an empty dictionary for the words count
+    words_count_dict = {}
+    # iterate over each word in that list, add into dictionary
+    for word in words_list:
+        words_count_dict[word] = words_count_dict.get(word, 0) + 1
+
+    return words_count_dict
+
+
+def print_words(words_count_dict):
+    """Takes in a dictionary, prints each key value pairs on a separate line"""
+    for word, count in words_count_dict.items():
         print(word, count)
 
 
-count_words("test.txt")
+def count_words_in_file(filename):
+    """Count words in file."""
+
+    # Tokenize the words in the file
+    words_list = tokenize(filename)
+
+    # Count the words
+    words_count_dict = count_words(words_list)
+
+    # Print the words
+    print_words(words_count_dict)
+
+
+count_words_in_file(sys.argv[1])
